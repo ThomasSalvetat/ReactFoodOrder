@@ -1,15 +1,85 @@
-import React, { AppRegistry, Component, StyleSheet, Text, View } from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
+'use strict';
 
-class DemoApp extends Component {
+var React = require('react-native');
+var {
+  AppRegistry,
+  StyleSheet,
+  Component,
+  Text,
+  View,
+  Navigator,
+  TouchableOpacity,
+  BackAndroid,
+} = React;
+
+var SplashPage = require('./SplashPage');
+var LoginPage = require('./LoginPage');
+var MainPage = require('./MainPage');
+var PersonPage = require('./PersonPage');
+var NoNavigatorPage = require('./NoNavigatorPage');
+var _navigator;
+
+class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          React Native Material Design
-        </Text>
-        <Text style={styles.instructions}>
-          iOS example coming soon... PRs welcome!
-        </Text>
+      <Navigator
+          initialRoute={{id: 'SplashPage', name: 'Index'}}
+          renderScene={this.renderScene.bind(this)}
+          configureScene={(route) => {
+            if (route.sceneConfig) {
+              return route.sceneConfig;
+            }
+            return Navigator.SceneConfigs.FloatFromRight;
+          }} />
+    );
+  }
+  renderScene(route, navigator) {
+    _navigator = navigator;
+    var routeId = route.id;
+    if (routeId === 'SplashPage') {
+      return (
+        <SplashPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'LoginPage') {
+      return (
+        <LoginPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'MainPage') {
+      return (
+        <MainPage
+            navigator={navigator} />
+      );
+    }
+    if (routeId === 'PersonPage') {
+      return (
+        <PersonPage
+          navigator={navigator} />
+      );
+    }
+    if (routeId === 'NoNavigatorPage') {
+      return (
+        <NoNavigatorPage
+            navigator={navigator} />
+      );
+    }
+    return this.noRoute(navigator);
+
+  }
+  noRoute(navigator) {
+    return (
+      <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
+        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
+            onPress={() => navigator.pop()}>
+          <Text style={{color: 'red', fontWeight: 'bold'}}>There is no route !</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -31,7 +101,7 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
-  }
+  },
 });
 
-AppRegistry.registerComponent('ReactFoodOrder', () => DemoApp);
+AppRegistry.registerComponent('ReactFoodOrder', () => App);

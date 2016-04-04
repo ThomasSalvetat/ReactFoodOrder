@@ -36,6 +36,7 @@ class LoginPage extends Component {
     this.props.navigator.push({
       id: 'MainPage',
       name: 'MainPage',
+      sceneConfig: Navigator.SceneConfigs.HorizontalSwipeJumpFromRight,
     });
   }
 }

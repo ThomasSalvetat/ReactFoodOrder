@@ -37,6 +37,7 @@ class MainPage extends Component {
     this.props.navigator.push({
       id: 'PersonPage',
       name: 'PersonPage',
+      sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
     });
   }
 }
