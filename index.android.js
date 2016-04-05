@@ -24,6 +24,7 @@ var PersonPage = require('./PersonPage');
 var NoNavigatorPage = require('./NoNavigatorPage');
 var _navigator;
 
+//ES6
 class App extends Component {
   render() {
     var navigationView = (
